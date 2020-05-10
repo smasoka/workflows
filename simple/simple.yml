@@ -1,0 +1,123 @@
+schema_version: 1.0.0
+
+
+# 0
+general:
+  title: simplerun
+  prefix: simple_caracal
+
+getdata:
+  dataid: ['']
+
+obsconf:
+  reference_antenna: '0'
+
+
+# 1
+prep:
+  enable: true
+  label_in: cal
+  field: calibrators
+  spectral_weights:
+    enable: true
+    mode: uniform
+  
+flag_calibrators:
+  enable: true
+  field: calibrators
+  label_in: cal
+  flag_rfi:
+    enable: true
+    flagger: aoflagger
+  flag_autocorr:
+    enable: true
+  flag_shadow:
+    enalbe: true
+  report: true
+
+crosscal:
+  enable: true
+  label_in: cal
+  apply_cal:
+    applyto:
+      - gcal
+      - bpcal
+  report: true
+
+inspect:
+  label_in: cal
+  label_out: 1gc
+  dirname: crosscal
+  enable: true
+
+
+# 2
+transform:
+  enable: true
+  label_out: cal
+  split_field:
+    enable: true
+    field: calibrators
+    column: data
+
+prep__target:
+  enable: true
+  label_in: corr
+  field: target
+
+flag__target:
+  enable: true
+  field: target
+  label_in: corr
+  flag_rfi:
+    enable: true
+    flagger: aoflagger
+  report: true
+  
+selfcal:
+  enable: true
+  img_npix: 1800
+  img_cell: 2
+  cal_timeslots_chunk: 240
+  image:
+    enable: true
+  calibrate:
+    enable: true
+    Gsols_timeslots: [120]
+  report: true
+
+# 3
+line:
+  enable: true
+  restfreq: '1.420405752GHz'
+  make_cube:
+    enable: true
+    npix: [1800]
+    cell: 2
+  mstransform:
+    enable: true
+    doppler:
+      enable: true
+      telescope: meerkat
+  report: true
+
+
+# 4
+mosaic__cont:
+  enable: true
+  mosaic_type: continuum
+  name: contmos
+  domontage:
+    enable: true
+  cutoff: 0.1
+  use_MFS_images: true
+
+mosaic__cubes:
+  enable: true
+  mosaic_type: spectral
+  name: cubemos
+  domontage:
+    enable: true
+  cutoff: 0.1
+  use_MFS_images: true
+
