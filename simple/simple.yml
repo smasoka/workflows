@@ -4,6 +4,9 @@ schema_version: 1.0.0
 # 0
 general:
   title: simplerun
+  msdir: msdir
+  input: input
+  output: output
   prefix: simple_caracal
 
 getdata:
