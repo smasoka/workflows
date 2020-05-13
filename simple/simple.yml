@@ -19,9 +19,9 @@ obsconf:
 # 1
 prep:
   enable: true
-  label_in: cal
+  label_in: ''
   field: calibrators
-  spectral_weights:
+  specweights:
     enable: true
     mode: uniform
   
